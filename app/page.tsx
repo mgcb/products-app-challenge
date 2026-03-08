@@ -1,5 +1,4 @@
 import InsightsCards from "@/components/InsightsCards";
-import ProductTable from "@/components/ProductTable";
 import Sidebar from "@/components/Sidebar";
 import CategoryChart from "@/components/CategoryChart";
 import Header from "@/components/Header";
@@ -69,25 +68,11 @@ export default async function HomePage() {
             <InsightsCards insights={data.insights} />
 
             <section className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
-              <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-                Catalog Overview
-              </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Most common category:{" "}
-                <span className="font-medium text-gray-900 dark:text-white">
-                  {data.insights.mostCommonCategory}
-                </span>
-              </p>
-            </section>
-
-            <section className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
               <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
                 Category Distribution
               </h2>
               <CategoryChart data={Object.entries(categoryCount).map(([category, count]) => ({ category, count }))} />
             </section>
-
-            <ProductTable products={data.products} />
           </div>
         </main>
       </div>

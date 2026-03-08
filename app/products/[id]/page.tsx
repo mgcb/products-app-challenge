@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Product } from "@/types/product";
+import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 type ProductPageProps = {
   params: Promise<{ id: string }>;
@@ -22,22 +25,33 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProduct(id);
 
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="mx-auto max-w-5xl px-6 py-10">
-        <Link
-          href="/"
-          className="mb-6 inline-block text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline"
-        >
-          ← Back to dashboard
-        </Link>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+      <Header />
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1">
+          <div className="mx-auto max-w-5xl px-6 py-10">
+
 
         <div className="grid gap-8 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm md:grid-cols-2">
-          <div>
+          <div className="space-y-4">
             <img
               src={product.thumbnail}
               alt={product.title}
               className="w-full rounded-2xl border border-gray-200 dark:border-gray-600 object-cover"
             />
+            {product.images && product.images.length > 1 && (
+              <div className="grid grid-cols-2 gap-2">
+                {product.images.slice(1, 5).map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`${product.title} ${index + 1}`}
+                    className="w-full h-24 rounded-lg border border-gray-200 dark:border-gray-600 object-cover"
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="space-y-5">
@@ -85,9 +99,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 information, available stock and user rating.
               </p>
             </div>
-          </div>
-        </div>
+          </div>          </div>        </div>
+        </main>
       </div>
-    </main>
+      <Footer />
+    </div>
   );
 }
