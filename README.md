@@ -353,3 +353,100 @@ Ejecutar build de producción
 ``` bash
 npm start
 ```
+------------------------------------------------------------------------
+
+# Flujo de Trabajo con LLM y Uso de IA
+
+## Descripción General
+
+Durante el desarrollo de este proyecto utilicé un **Modelo de Lenguaje (LLM)** como asistente de desarrollo. La herramienta se utilizó principalmente para apoyar la comprensión de algunas tecnologías y para acelerar ciertas partes del proceso de implementación.
+
+El LLM fue utilizado como una **herramienta de apoyo**, no como un reemplazo para las decisiones de diseño o razonamiento de implementación.
+
+Todas las decisiones arquitectónicas, ajustes y estructura final del código fueron revisadas y refinadas manualmente.
+
+---
+
+# Cómo se utilizó el LLM
+
+El LLM ayudó principalmente en las siguientes áreas:
+
+### 1. Comprensión de conceptos de Next.js
+
+Dado que el proyecto utiliza **Next.js con App Router**, el LLM se utilizó para aclarar conceptos como:
+
+- estructura de App Router
+- rutas API (`/api/*`)
+- Server Components vs Client Components
+- rutas dinámicas (`/products/[id]`)
+
+Esto ayudó a acelerar la configuración inicial del proyecto.
+
+---
+
+### 2. Generación de scaffolding inicial de código
+
+El LLM se utilizó para generar plantillas iniciales para:
+
+- la ruta API `/api/products`
+- componentes del layout del dashboard
+- estructura de la tabla de productos
+- página de detalle de producto
+
+El código generado fue posteriormente revisado y adaptado para ajustarse a los requisitos del challenge.
+
+---
+
+### 3. Estructuración del proyecto
+
+El LLM ayudó a explorar posibles estructuras del proyecto y buenas prácticas para organizar:
+
+- componentes
+- rutas API
+- tipos de TypeScript
+- utilidades compartidas
+
+La estructura final fue seleccionada priorizando claridad y mantenibilidad.
+
+---
+
+### 4. Apoyo en documentación
+
+El LLM también se utilizó para ayudar a redactar partes de la documentación, incluyendo:
+
+- estructura del README
+- explicación de decisiones arquitectónicas
+- formato de documentación en Markdown
+
+Toda la documentación fue posteriormente revisada y editada manualmente para reflejar con precisión la implementación.
+
+---
+
+# Flujo de Desarrollo
+
+El proceso de desarrollo siguió aproximadamente estos pasos:
+
+1. Comprender los requisitos del challenge.
+2. Definir una arquitectura simple utilizando Next.js App Router.
+3. Implementar una capa backend de agregación (`/api/products`) para procesar datos provenientes de DummyJSON.
+4. Construir los componentes de UI del dashboard.
+5. Agregar la lista de productos y la vista de detalle de producto.
+6. Implementar la visualización de categorías.
+7. Refinar el layout y la estructura de componentes.
+8. Documentar las decisiones técnicas y de producto.
+
+El LLM se utilizó durante todo el proceso como **herramienta de apoyo**, pero las decisiones finales y los ajustes del código se realizaron manualmente.
+
+---
+
+# Transparencia
+
+El uso de herramientas de IA en este proyecto se declara explícitamente, tal como lo solicitan las instrucciones del challenge.
+
+El LLM se utilizó principalmente para:
+
+- acelerar la comprensión de partes del stack que no conocía completamente
+- generar ideas iniciales de implementación
+- apoyar la redacción de la documentación
+
+La solución final refleja decisiones de ingeniería deliberadas y revisión manual del código.
