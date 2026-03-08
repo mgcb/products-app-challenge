@@ -1,6 +1,6 @@
 import InsightsCards from "@/components/InsightsCards";
 import ProductTable from "@/components/ProductTable";
-import Sidebar from "@/components/Sidebar";
+import CategoryChart from "@/components/CategoryChart";
 import { BASE_URL } from "@/lib/constants";
 import { DashboardResponse } from "@/types/product";
 
@@ -17,7 +17,28 @@ async function getDashboardData(): Promise<DashboardResponse> {
 }
 
 export default async function HomePage() {
-  const data = await getDashboardData();
+  let data: DashboardResponse | null = null;
+  try {
+    data = await getDashboardData();
+  } catch (error) {
+    console.error("Failed to fetch dashboard data:", error);
+    return (
+      <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
+        <main className="flex-1">
+          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10">
+            <header className="space-y-2">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                Error
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400">
+                Failed to load dashboard data. Please try again later.
+              </p>
+            </header>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   // Calculate category distribution
   const categoryCount = data.products.reduce((acc, product) => {
@@ -26,15 +47,14 @@ export default async function HomePage() {
   }, {} as Record<string, number>);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <Sidebar />
+    <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
       <main className="flex-1">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10">
           <header className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               Mini Product Insights Dashboard
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               A simple internal dashboard to explore product catalog insights and
               individual product details.
             </p>
@@ -42,30 +62,23 @@ export default async function HomePage() {
 
           <InsightsCards insights={data.insights} />
 
-          <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-2 text-xl font-semibold text-gray-900">
+          <section className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
+            <h2 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
               Catalog Overview
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
               Most common category:{" "}
-              <span className="font-medium text-gray-900">
+              <span className="font-medium text-gray-900 dark:text-white">
                 {data.insights.mostCommonCategory}
               </span>
             </p>
           </section>
 
-          <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+          <section className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white">
               Category Distribution
             </h2>
-            <div className="space-y-2">
-              {Object.entries(categoryCount).map(([category, count]) => (
-                <div key={category} className="flex justify-between">
-                  <span className="text-sm text-gray-600">{category}</span>
-                  <span className="text-sm font-medium text-gray-900">{count}</span>
-                </div>
-              ))}
-            </div>
+            <CategoryChart data={Object.entries(categoryCount).map(([category, count]) => ({ category, count }))} />
           </section>
 
           <ProductTable products={data.products} />
