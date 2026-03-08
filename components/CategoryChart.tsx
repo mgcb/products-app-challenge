@@ -43,7 +43,7 @@ export default function CategoryChart({ data }: CategoryChartProps) {
     const themeConfig = isDark ? THEME_CONFIG.dark : THEME_CONFIG.light;
     const colors = isDark ? CHART_COLORS_DARK : CHART_COLORS_LIGHT;
 
-    const spec = {
+    const spec: any = {
       type: "bar",
       data: {
         values: data,
